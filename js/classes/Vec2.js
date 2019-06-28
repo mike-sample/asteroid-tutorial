@@ -26,3 +26,5 @@ export default class Vec2 {
         })
     }
 }
+export const CENTER = new Vec2({ x: 250, y: 250 })
+export const CHILL_VECTOR = new Vec2({ x: 0, y: 0 })

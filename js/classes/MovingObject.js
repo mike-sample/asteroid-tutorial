@@ -1,7 +1,5 @@
 import Canvas, {canvas} from 'utility/Canvas.js'
-import Vec2 from 'classes/Vec2.js'
-const CENTER = new Vec2({ x: 250, y: 250 })
-const CHILL_VECTOR = new Vec2({x: 0, y: 0})
+import Vec2, { CENTER, CHILL_VECTOR } from 'classes/Vec2.js'
 const RADIUS = 20
 const MAX_SPEED = 5
 const { random } = Math

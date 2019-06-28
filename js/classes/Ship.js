@@ -1,11 +1,13 @@
 import MovingObject from 'classes/MovingObject.js'
 import Canvas from 'utility/Canvas.js'
-import Vec2 from 'classes/Vec2.js';
+import Vec2, { CHILL_VECTOR } from 'classes/Vec2.js';
 import key from 'keymaster'
 
 const {PI:pi, cos, sin} = Math
 const SHIP_RADIUS_BODY = 10
 const SHIP_RADIUS_HEAD = 5
+
+const ACCLERATION = .1
 export default class Ship extends MovingObject {
     constructor(args) {
         super(args)
@@ -29,11 +31,22 @@ export default class Ship extends MovingObject {
         });
     }
     move() {
-        if(key.isPressed("left")) {
+        if (key.isPressed("left")) {
             this.direction -= .1
         }
-        if(key.isPressed("right")) {
+        if (key.isPressed("right")) {
             this.direction += .1
         }
+
+        this.velocity = this.velocity.add(this.acceleration)
+        this.position = this.position.add(this.velocity)
+    }
+    get acceleration() {
+        if (!key.isPressed("up")) { return CHILL_VECTOR }
+
+        return new Vec2({
+            x: ACCLERATION * cos(this.direction),
+            y: ACCLERATION * sin(this.direction)
+        })
     }
 }
