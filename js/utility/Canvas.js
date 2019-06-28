@@ -14,4 +14,7 @@ export default {
         context.closePath()
         context.stroke()
     },
+    clear() {
+        context.clearRect(0,0,1E9,1E9)
+    }
 }
