@@ -1,4 +1,4 @@
-const canvas = document.getElementById('canvas-stage')
+export const canvas = document.getElementById('canvas-stage')
 const context = canvas.getContext('2d')
 
 const { PI } = Math
