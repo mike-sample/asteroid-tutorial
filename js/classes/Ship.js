@@ -1,6 +1,6 @@
-import MovingObject from '/js/classes/MovingObject.js'
-import Canvas from '/js/utility/Canvas.js'
-import Vec2 from '/js/classes/Vec2.js';
+import MovingObject from 'classes/MovingObject.js'
+import Canvas from 'utility/Canvas.js'
+import Vec2 from 'classes/Vec2.js';
 import key from 'keymaster'
 
 const {PI:pi, cos, sin} = Math

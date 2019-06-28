@@ -1,5 +1,5 @@
-import Canvas, {canvas} from '/js/utility/Canvas.js'
-import Vec2 from '/js/classes/Vec2.js'
+import Canvas, {canvas} from 'utility/Canvas.js'
+import Vec2 from 'classes/Vec2.js'
 const CENTER = new Vec2({ x: 250, y: 250 })
 const CHILL_VECTOR = new Vec2({x: 0, y: 0})
 const RADIUS = 20

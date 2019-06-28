@@ -1,6 +1,6 @@
-import MovingObject from '/js/classes/MovingObject.js'
-import Canvas from '/js/utility/Canvas.js'
-import Ship from '/js/classes/Ship.js';
+import MovingObject from 'classes/MovingObject.js'
+import Canvas from 'utility/Canvas.js'
+import Ship from 'classes/Ship.js';
 
 const ASTROID_COUNT = 100
 
