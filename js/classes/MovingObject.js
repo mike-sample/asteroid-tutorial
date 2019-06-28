@@ -1,11 +1,13 @@
 import Canvas, {canvas} from '/js/utility/Canvas.js'
 import Vec2 from '/js/classes/Vec2.js'
+const CENTER = new Vec2({ x: 250, y: 250 })
+const CHILL_VECTOR = new Vec2({x: 0, y: 0})
 const RADIUS = 20
 const MAX_SPEED = 5
 const { random } = Math
 
 export default class MovingObject {
-    constructor({position, velocity}) {
+    constructor({position = CENTER, velocity = CHILL_VECTOR} = {}) {
         this.position = position;
         this.velocity = velocity;
     }
@@ -17,7 +19,8 @@ export default class MovingObject {
     draw() {
         Canvas.drawCircle({
             ...this.position,
-            radius: RADIUS
+            radius: RADIUS,
+            color: this.color
         });
     }
     inBounds() {

@@ -1,22 +1,25 @@
 import MovingObject from '/js/classes/MovingObject.js'
 import Canvas from '/js/utility/Canvas.js'
+import Ship from '/js/classes/Ship.js';
 
-const {random} = Math
 const ASTROID_COUNT = 100
 
 export default class Game {
     constructor() {
         this.astroids = []
+        this.ship = new Ship();
     }
     move() {
         this.astroids.forEach(movingObject => {
             movingObject.move();
         })
+        this.ship.move()
     }
     draw() {
         this.astroids.forEach(movingObject => {
             movingObject.draw();
         })
+        this.ship.draw()
     }
     deleteOutOfBounds() {
         this.astroids = this.astroids.filter(astroid => {
