@@ -1,5 +1,7 @@
 import MovingObject from '/js/classes/MovingObject.js'
 import Canvas from '/js/utility/Canvas.js'
+
+const {random} = Math
 const ASTROID_COUNT = 100
 
 export default class Game {
@@ -23,7 +25,7 @@ export default class Game {
     }
     repopulateAstroids() {
         while(this.astroids.length < ASTROID_COUNT) {
-            this.astroids.push(MovingObject.createRandom())
+            this.astroids.push(MovingObject.onBoundsCreateRandom())
         }
     }
     tick() {
