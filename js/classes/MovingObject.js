@@ -1,6 +1,5 @@
 import Canvas, {canvas} from "utility/Canvas.js"
 import Vec2, { CENTER, CHILL_VECTOR } from "classes/Vec2.js"
-import Ship from "./Ship";
 const RADIUS = 20
 const MAX_SPEED = 5
 const { random, abs } = Math
