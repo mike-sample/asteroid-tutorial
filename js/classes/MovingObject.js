@@ -1,25 +1,25 @@
-import Canvas, {canvas} from 'utility/Canvas.js'
-import Vec2, { CENTER, CHILL_VECTOR } from 'classes/Vec2.js'
+import Canvas, {canvas} from "utility/Canvas.js"
+import Vec2, { CENTER, CHILL_VECTOR } from "classes/Vec2.js"
 const RADIUS = 20
 const MAX_SPEED = 5
 const { random } = Math
 
 export default class MovingObject {
     constructor({position = CENTER, velocity = CHILL_VECTOR} = {}) {
-        this.position = position;
-        this.velocity = velocity;
+        this.position = position
+        this.velocity = velocity
     }
 
     move () {
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
+        this.position.x += this.velocity.x
+        this.position.y += this.velocity.y
     }
     draw() {
         Canvas.drawCircle({
             ...this.position,
             radius: RADIUS,
             color: this.color
-        });
+        })
     }
     inBounds() {
         return (
@@ -37,7 +37,7 @@ export default class MovingObject {
     static onBoundsCreateRandom() {
         const movingObject = MovingObject.createRandom()
 
-        const xOrY = random() < .5 ? 'x' : 'y'
+        const xOrY = random() < .5 ? "x" : "y"
         const newXorY = random() < .5 ? 0 - RADIUS : 500 + RADIUS
 
         movingObject.position[xOrY] = newXorY

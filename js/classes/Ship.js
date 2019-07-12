@@ -1,7 +1,7 @@
-import MovingObject from 'classes/MovingObject.js'
-import Canvas from 'utility/Canvas.js'
-import Vec2, { CHILL_VECTOR } from 'classes/Vec2.js';
-import key from 'keymaster'
+import MovingObject from "classes/MovingObject.js"
+import Canvas from "utility/Canvas.js"
+import Vec2, { CHILL_VECTOR } from "classes/Vec2.js"
+import key from "keymaster"
 
 const {PI:pi, cos, sin} = Math
 const SHIP_RADIUS_BODY = 10
@@ -12,14 +12,14 @@ export default class Ship extends MovingObject {
     constructor(args) {
         super(args)
         this.direction = -pi/2
-        this.color =  '#88f'
+        this.color =  "#88f"
     }
     draw() {
         Canvas.drawCircle({
             ...this.position,
             radius: SHIP_RADIUS_BODY,
             color: this.color
-        });
+        })
         var headPosition = new Vec2({
             x: cos(this.direction) * SHIP_RADIUS_BODY,
             y: sin(this.direction) * SHIP_RADIUS_BODY
@@ -28,7 +28,7 @@ export default class Ship extends MovingObject {
             ...this.position.add(headPosition),
             radius: SHIP_RADIUS_HEAD,
             color: this.color
-        });
+        })
     }
     move() {
         if (key.isPressed("left")) {
