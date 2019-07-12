@@ -14,6 +14,8 @@ export default class Game {
             movingObject.move()
         })
         this.ship.move()
+        this.ship.wrap()
+        this.ship.decayVelocity()
     }
     draw() {
         this.astroids.forEach(movingObject => {
@@ -23,7 +25,7 @@ export default class Game {
     }
     deleteOutOfBounds() {
         this.astroids = this.astroids.filter(astroid => {
-            return astroid.inBounds()
+            return !astroid.outOfBounds()
         })
     }
     repopulateAstroids() {

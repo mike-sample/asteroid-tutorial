@@ -1,3 +1,5 @@
+import { runInThisContext } from "vm";
+
 const {random, PI:pi, cos, sin} = Math
 export default class Vec2 {
     constructor({x = 0, y = 0}) {
@@ -9,6 +11,10 @@ export default class Vec2 {
             x: this.x + vector.x,
             y: this.y + vector.y,
         })
+    }
+    scale(scalar) {
+        this.x = this.x * scalar
+        this.y = this.y * scalar
     }
     static createRandomInRadius(radius) {
         const magnitude = random() * radius

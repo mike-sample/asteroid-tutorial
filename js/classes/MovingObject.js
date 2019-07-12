@@ -1,5 +1,6 @@
 import Canvas, {canvas} from "utility/Canvas.js"
 import Vec2, { CENTER, CHILL_VECTOR } from "classes/Vec2.js"
+import Ship from "./Ship";
 const RADIUS = 20
 const MAX_SPEED = 5
 const { random } = Math
@@ -14,6 +15,23 @@ export default class MovingObject {
         this.position.x += this.velocity.x
         this.position.y += this.velocity.y
     }
+    wrap() {
+        const outBounds = this.outOfBounds()
+        if (!outBounds) {
+            return
+        } else if (outBounds.direction === "east") {
+            this.position.x -= (canvas.width + 2 * RADIUS)
+        } else if (outBounds.direction === "west") {
+            this.position.x += (canvas.width + 2 * RADIUS)
+        } else if (outBounds.direction === "north") {
+            this.position.y += (canvas.height + 2 * RADIUS)
+        } else if (outBounds.direction === "south") {
+            this.position.y -= (canvas.height + 2 * RADIUS)
+        }
+    }
+    decayVelocity() {
+        this.velocity.scale(0.99)
+    }
     draw() {
         Canvas.drawCircle({
             ...this.position,
@@ -21,13 +39,18 @@ export default class MovingObject {
             color: this.color
         })
     }
-    inBounds() {
-        return (
-            this.position.x - RADIUS < canvas.width &&
-            this.position.x + RADIUS > 0 &&
-            this.position.y + RADIUS > 0 &&
-            this.position.y - RADIUS < canvas.height
-        )
+    outOfBounds() {
+        if (this.position.x - RADIUS > canvas.width) {
+            return {axis: "x", direction: "east"}
+        } else if (this.position.x + RADIUS < 0) {
+            return {axis: "x", direction: "west"}
+        } else if (this.position.y + RADIUS < 0) {
+            return {axis: "y", direction: "north"}
+        } else if (this.position.y - RADIUS > canvas.height) {
+            return {axis: "y", direction: "south"}
+        } else {
+            return null
+        }
     }
     static createRandom() {
         const position = Vec2.createRandomInRectangle({width: 500, height: 500})
