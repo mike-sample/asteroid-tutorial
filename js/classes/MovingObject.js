@@ -3,12 +3,13 @@ import Vec2, { CENTER, CHILL_VECTOR } from "classes/Vec2.js"
 import Ship from "./Ship";
 const RADIUS = 20
 const MAX_SPEED = 5
-const { random } = Math
+const { random, abs } = Math
 
 export default class MovingObject {
-    constructor({position = CENTER, velocity = CHILL_VECTOR} = {}) {
+    constructor({position = CENTER, velocity = CHILL_VECTOR, radius = RADIUS} = {}) {
         this.position = position
         this.velocity = velocity
+        this.radius = radius
     }
 
     move () {
@@ -39,6 +40,10 @@ export default class MovingObject {
             color: this.color
         })
     }
+    isCollidedWith(shape) {
+        const distance = Vec2.distance(this.position, shape.position)
+        return distance < (shape.radius + this.radius)
+    } 
     outOfBounds() {
         if (this.position.x - RADIUS > canvas.width) {
             return {axis: "x", direction: "east"}
@@ -55,7 +60,7 @@ export default class MovingObject {
     static createRandom() {
         const position = Vec2.createRandomInRectangle({width: 500, height: 500})
         const velocity = Vec2.createRandomInRadius(MAX_SPEED)
-        return new MovingObject({position, velocity})
+        return new MovingObject({position, velocity, radius: RADIUS})
     }
     static onBoundsCreateRandom() {
         const movingObject = MovingObject.createRandom()

@@ -1,6 +1,4 @@
-import { runInThisContext } from "vm";
-
-const {random, PI:pi, cos, sin} = Math
+const {random, PI:pi, cos, sin, hypot} = Math
 export default class Vec2 {
     constructor({x = 0, y = 0}) {
         this.x = x
@@ -12,9 +10,23 @@ export default class Vec2 {
             y: this.y + vector.y,
         })
     }
+    subtract(vector) {
+        return new Vec2({
+            x: this.x - vector.x,
+            y: this.y - vector.y,
+        })
+    }
     scale(scalar) {
         this.x = this.x * scalar
         this.y = this.y * scalar
+    }
+    static distance (vector1, vector2) {
+        const difference = vector1.subtract(vector2)
+
+        return hypot(
+            difference.x,
+            difference.y
+        )
     }
     static createRandomInRadius(radius) {
         const magnitude = random() * radius

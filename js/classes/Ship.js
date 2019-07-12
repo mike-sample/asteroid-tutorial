@@ -11,13 +11,14 @@ const ACCLERATION = .1
 export default class Ship extends MovingObject {
     constructor(args) {
         super(args)
+        this.radius = SHIP_RADIUS_BODY
         this.direction = -pi/2
         this.color =  "#88f"
     }
     draw() {
         Canvas.drawCircle({
             ...this.position,
-            radius: SHIP_RADIUS_BODY,
+            radius: this.radius,
             color: this.color
         })
         var headPosition = new Vec2({
