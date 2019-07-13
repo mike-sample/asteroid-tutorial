@@ -6,6 +6,8 @@ import key from "keymaster"
 const {PI:pi, cos, sin} = Math
 const SHIP_RADIUS_BODY = 10
 const SHIP_RADIUS_HEAD = 5
+const BULLET_RADIUS = 3
+const BULLET_VELOCITY = new Vec2({x: 5, y: 5})
 
 const ACCLERATION = .1
 export default class Ship extends MovingObject {
@@ -21,14 +23,17 @@ export default class Ship extends MovingObject {
             radius: this.radius,
             color: this.color
         })
-        var headPosition = new Vec2({
-            x: cos(this.direction) * SHIP_RADIUS_BODY,
-            y: sin(this.direction) * SHIP_RADIUS_BODY
-        })
+        var headPosition = this.getHeadPosition()
         Canvas.drawCircle({
             ...this.position.add(headPosition),
             radius: SHIP_RADIUS_HEAD,
             color: this.color
+        })
+    }
+    getHeadPosition() {
+        return new Vec2({
+            x: cos(this.direction) * SHIP_RADIUS_BODY,
+            y: sin(this.direction) * SHIP_RADIUS_BODY
         })
     }
     move() {
@@ -41,6 +46,14 @@ export default class Ship extends MovingObject {
 
         this.velocity = this.velocity.add(this.acceleration)
         this.position = this.position.add(this.velocity)
+    }
+    shoot() {
+        return new MovingObject({
+            postion: this.getHeadPosition(),
+            direction: this.direction,
+            velocity: BULLET_VELOCITY,
+            radius: BULLET_RADIUS
+        })
     }
     get acceleration() {
         if (!key.isPressed("up")) { return CHILL_VECTOR }

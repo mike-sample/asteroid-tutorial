@@ -1,42 +1,50 @@
 import MovingObject from "classes/MovingObject.js"
 import Canvas from "utility/Canvas.js"
 import Ship from "classes/Ship.js"
+import key from "keymaster"
 
-const ASTROID_COUNT = 10
+const ASTEROID_COUNT = 10
 
 export default class Game {
     constructor() {
-        this.astroids = []
+        this.asteroids = []
+        this.bullets = []
         this.ship = new Ship()
         this.running = false
     }
     move() {
-        this.astroids.forEach(movingObject => {
-            movingObject.move()
+        this.asteroids.forEach(asteroid => {
+            asteroid.move()
+        })
+        this.bullets.forEach(bullet => {
+            bullet.move()
         })
         this.ship.move()
         this.ship.wrap()
         this.ship.decayVelocity()
     }
     draw() {
-        this.astroids.forEach(movingObject => {
-            movingObject.draw()
+        this.asteroids.forEach(asteroid => {
+            asteroid.draw()
         })
+        this.bullets.forEach(bullet => {
+            bullet.draw()
+        }) 
         this.ship.draw()
     }
     deleteOutOfBounds() {
-        this.astroids = this.astroids.filter(astroid => {
-            return !astroid.outOfBounds()
+        this.asteroids = this.asteroids.filter(asteroid => {
+            return !asteroid.outOfBounds()
         })
     }
-    repopulateAstroids() {
-        while(this.astroids.length < ASTROID_COUNT) {
-            this.astroids.push(MovingObject.onBoundsCreateRandom())
+    repopulateAsteroids() {
+        while(this.asteroids.length < ASTEROID_COUNT) {
+            this.asteroids.push(MovingObject.onBoundsCreateRandom())
         }
     }
     checkForShipCollision() {
-        this.ship.hit = this.astroids.some(astroid => {
-            return (astroid.isCollidedWith(this.ship))
+        this.ship.hit = this.asteroids.some(asteroid => {
+            return (asteroid.isCollidedWith(this.ship))
         })
     }
     handleCollisions() {
@@ -46,6 +54,9 @@ export default class Game {
     }
     start() {
         this.running = true
+        key("space", () => { 
+            this.bullets.push(this.ship.shoot())
+        })
         this.tick()
     }
     end() {
@@ -57,7 +68,7 @@ export default class Game {
             return
         }
         Canvas.clear()
-        this.repopulateAstroids()
+        this.repopulateAsteroids()
         this.move()
         this.deleteOutOfBounds()
         this.checkForShipCollision()
